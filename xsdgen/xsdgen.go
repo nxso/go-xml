@@ -686,7 +686,7 @@ func (cfg *Config) genComplexType(t *xsd.ComplexType) ([]spec, error) {
 		}
 		fieldName := fmt.Sprintf(`%s %s`, el.Name.Space, el.Name.Local)
 		if cfg.hideNamespaceInStructTag || el.Name.Space == "" {
-			fieldName = el.Name.Space
+			fieldName = el.Name.Local
 		}
 		tag := fmt.Sprintf(`xml:"%s%s"`, fieldName, options)
 		base, err := cfg.expr(el.Type)
