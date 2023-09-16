@@ -684,9 +684,9 @@ func (cfg *Config) genComplexType(t *xsd.ComplexType) ([]spec, error) {
 		if el.Nillable || el.Optional {
 			options = ",omitempty"
 		}
-		fieldName := el.Name.Space
+		fieldName := fmt.Sprintf(`%s %s`, el.Name.Space, el.Name.Local)
 		if cfg.hideNamespaceInStructTag || el.Name.Space == "" {
-			fieldName = fmt.Sprintf(`%s %s`, el.Name.Space, el.Name.Local)
+			fieldName = el.Name.Space
 		}
 		tag := fmt.Sprintf(`xml:"%s%s"`, fieldName, options)
 		base, err := cfg.expr(el.Type)
@@ -743,9 +743,9 @@ func (cfg *Config) genComplexType(t *xsd.ComplexType) ([]spec, error) {
 		}
 		var tag string
 		if qualified {
-			fieldName := attr.Name.Local
+			fieldName := fmt.Sprintf(`%s %s`, attr.Name.Space, attr.Name.Local)
 			if cfg.hideNamespaceInStructTag || attr.Name.Space == "" {
-				fieldName = fmt.Sprintf(`%s %s`, attr.Name.Space, attr.Name.Local)
+				fieldName = attr.Name.Local
 			}
 			tag = fmt.Sprintf(`xml:"%s,attr%s"`, fieldName, options)
 		} else {
