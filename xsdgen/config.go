@@ -230,6 +230,16 @@ func replacePostprocessType(p *specTransform, fn specTransform) Option {
 
 // PackageName specifies the name of the generated Go
 // package.
+func HideNamespaceInStructTag(hide bool) Option {
+	return func(cfg *Config) Option {
+		prev := cfg.hideNamespaceInStructTag
+		cfg.hideNamespaceInStructTag = true
+		return HideNamespaceInStructTag(prev)
+	}
+}
+
+// PackageName specifies the name of the generated Go
+// package.
 func PackageName(name string) Option {
 	return func(cfg *Config) Option {
 		prev := cfg.pkgname
